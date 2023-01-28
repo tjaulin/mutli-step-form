@@ -1,0 +1,19 @@
+{
+  "name": "multi-step-form-main",
+  "version": "1.0.0",
+  "description": "![Design preview for the Multi-step form coding challenge](./design/desktop-preview.jpg)",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./css/style.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjaulin/mutli-step-form.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjaulin/mutli-step-form/issues"
+  },
+  "homepage": "https://github.com/tjaulin/mutli-step-form#readme"
+}
