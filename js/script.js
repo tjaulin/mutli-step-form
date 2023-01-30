@@ -11,6 +11,17 @@ btnSubmit.addEventListener("click", function(event) {
 });
 btnSubmit.addEventListener("click", goStep2);
 
+const afterSubmitButtons = btnSubmit;
+const divButton = document.createElement("div");
+if (window.screen.availWidth <= 770) {
+    afterSubmitButtons.classList.remove("container__infos__form__submit");
+    afterSubmitButtons.classList.add("container__infos__btns__submit")
+    btnSubmit.remove();
+    divButton.classList.add("container__btns", "forms");
+    divButton.append(afterSubmitButtons);
+    main.append(divButton);
+}
+
 function goStep2() {
     infos.innerHTML = "";
     infos.classList.add("infos__plans__mobile");
@@ -182,6 +193,7 @@ function goStep2() {
     const infosButtons = document.querySelector(".container__infos__btns");
     if (window.screen.availWidth <= 770) {
         const afterInfosButtons = infosButtons;
+        divButton.remove();
         afterInfosButtons.classList.remove('container__infos__btns');
         afterInfosButtons.classList.add('container__btns');
         infosButtons.remove();

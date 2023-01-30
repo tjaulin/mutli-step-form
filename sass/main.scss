@@ -104,6 +104,7 @@ body {
             width: 32%;
         }
         @media screen and (max-width: 770px) {
+            position: absolute;
             background: url('../assets/images/bg-sidebar-mobile.svg');
             background-size: cover;
             background-repeat: no-repeat;
@@ -157,13 +158,7 @@ body {
             padding: 15px 25px;
             position: relative;
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-            top: -130px;
-        }
-        @media screen and (max-width: 518px) {
-            top: -118px;
-        }
-        @media screen and (max-width: 426px) {
-            top: -165px;
+            top: 85px;
         }
         h1 {
             color: $marineBlue;
@@ -348,14 +343,6 @@ body {
             }
         }
     }
-    .infos__plans__mobile {
-        @media screen and (max-width: 780px) {
-            top: -160px;
-        }
-        @media screen and (max-width: 426px) {
-            top: -115px;
-        }
-    }
     &__btns {
         position: absolute;
         bottom: 0;
@@ -369,6 +356,9 @@ body {
             text-decoration: none;
             color: $coolGray;
         }
+    }
+    &__btns.forms {
+        justify-content: flex-end;
     }
 }
 
