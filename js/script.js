@@ -13,7 +13,8 @@ btnSubmit.addEventListener("click", goStep2);
 
 function goStep2() {
     infos.innerHTML = "";
-
+    infos.classList.add("infos__plans__mobile");
+    
     // ----- SIDEBAR -----
     listLiSidebar.forEach(e => {
         if (e.classList.contains("active")) {
@@ -38,6 +39,7 @@ function goStep2() {
     const arcade = document.createElement("div");
     const h2Arcade = document.createElement("h2");
     const arcadePrice = document.createElement("span");
+    arcadePrice.classList.add("arcadePrice", "price");
     arcadePrice.innerText = "$9/mo"
     const divIconArcade = document.createElement("div");
     divIconArcade.classList.add("icon-plans");
@@ -49,6 +51,7 @@ function goStep2() {
     const advanced = document.createElement("div");
     const h2Advanced = document.createElement("h2");
     const advancedPrice = document.createElement("span");
+    advancedPrice.classList.add("advancedPrice", "price");
     advancedPrice.innerText = "$12/mo"
     const divIconAdvanced = document.createElement("div");
     divIconAdvanced.classList.add("icon-plans");
@@ -60,6 +63,7 @@ function goStep2() {
     const pro = document.createElement("div");
     const h2Pro = document.createElement("h2");
     const proPrice = document.createElement("span");
+    proPrice.classList.add("proPrice", "price");
     proPrice.innerText = "$15/mo"
     const divIconPro = document.createElement("div");
     divIconPro.classList.add("icon-plans");
@@ -90,7 +94,7 @@ function goStep2() {
     freeMonthsAdvanced.classList.add("freeMonths");
     const freeMonthsPro = document.createElement("p");
     freeMonthsPro.classList.add("freeMonths");
-
+    
     freeMonthsArcade.innerText = "2 months free";
     freeMonthsAdvanced.innerText = "2 months free";
     freeMonthsPro.innerText = "2 months free";
@@ -111,7 +115,7 @@ function goStep2() {
             freeMonthsArcade.style.display = "block";
             freeMonthsAdvanced.style.display = "block";
             freeMonthsPro.style.display = "block";
-
+            
         } else {
             divMonthYear.classList.remove("yearly");
             divMonthYear.classList.add("monthly");
@@ -123,7 +127,7 @@ function goStep2() {
             advancedPrice.innerText = "$12/mo"
             // Pro
             proPrice.innerText = "$15/mo"
-
+            
             // freeMonthsArcade.remove();
             // freeMonthsAdvanced.remove();
             // freeMonthsPro.remove();
@@ -146,7 +150,6 @@ function goStep2() {
     divMonthYear.append(monthly, labelToggle, yearly);
     
     
-    
     // ----- BUTTONS -----
     const bgBtns = document.createElement("div");
     bgBtns.classList.add("container__infos__btns");
@@ -155,14 +158,35 @@ function goStep2() {
     btnRetour.innerHTML = "Go Back";
     btnRetour.href = "#";
     // btnRetour.onclick = test;
-    btnRetour.style.color = "#02295a";
-    btnRetour.style.textDecoration = "none";
 
-    btnSubmit.style.margin = "0";
+    btnSubmit.classList.remove("container__infos__form__submit")
+    btnSubmit.classList.add("container__infos__btns__submit");
 
     bgBtns.append(btnRetour, btnSubmit);
 
     infos.append(title, paragraph, plans, divMonthYear, bgBtns);
+
+    // PLANS ON CLICK
+    const plansClick = document.querySelectorAll(".plan");
+    plansClick.forEach(function(element) {
+        element.addEventListener("click", function() {
+            plansClick.forEach(function(i){
+                if (i.classList.contains("activePlan")) {
+                    i.classList.remove("activePlan");
+                }
+            })
+            element.classList.toggle("activePlan");
+        });
+    });
+
+    const infosButtons = document.querySelector(".container__infos__btns");
+    if (window.screen.availWidth <= 770) {
+        const afterInfosButtons = infosButtons;
+        afterInfosButtons.classList.remove('container__infos__btns');
+        afterInfosButtons.classList.add('container__btns');
+        infosButtons.remove();
+        main.append(afterInfosButtons);
+    }
 }
 
 // function test() {

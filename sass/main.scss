@@ -40,6 +40,36 @@ body {
     color: #000;
 }
 
+@mixin buttonsSubmit() {
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: $marineBlue;
+    color: $white;
+    padding: 10px 0;
+    margin-top: 60px;
+    width: 20%;
+    align-self: flex-end;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: $purplishBlue;
+    }
+    @media screen and (max-width: 930px) {
+        width: 84px;
+    }
+    @media screen and (max-width: 770px) {
+        position: absolute;
+        bottom: -110px;
+    }
+    @media screen and (max-width: 518px) {
+        bottom: -100px;
+    }
+    @media screen and (max-width: 426px) {
+        bottom: -150px;
+    }
+}
+
 // -------- CONTAINER ----------
 .container {
     display: flex;
@@ -186,32 +216,9 @@ body {
                 }
             }
             &__submit {
-                outline: none;
-                border: none;
-                border-radius: 6px;
-                background-color: $marineBlue;
-                color: $white;
-                padding: 10px 0;
-                margin-top: 60px;
-                width: 20%;
-                align-self: flex-end;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                &:hover {
-                    background-color: $purplishBlue;
-                }
-                @media screen and (max-width: 930px) {
-                    width: 84px;
-                }
+                @include buttonsSubmit();
                 @media screen and (max-width: 770px) {
-                    position: absolute;
-                    bottom: -110px;
-                }
-                @media screen and (max-width: 518px) {
-                    bottom: -100px;
-                }
-                @media screen and (max-width: 426px) {
-                    bottom: -150px;
+                    position: relative;
                 }
             }
         }
@@ -219,6 +226,11 @@ body {
             width: 100%;
             height: auto;
             display: flex;
+            user-select: none;
+            @media screen and (max-width: 426px) {
+                flex-direction: column;
+                gap: 10px;
+            }
             .plan {
                 width: 32%;
                 border: 1px solid $coolGray;
@@ -227,15 +239,39 @@ body {
                 border-radius: 5px;
                 cursor: pointer;
                 transition: border 0.3s;
+                @media screen and (max-width: 426px) {
+                    width: 100%;
+                    margin: 0;
+                    display: grid;
+                    grid-template-rows: 1fr;
+                    grid-template-columns: 10%  90%;
+                    column-gap: 15px;
+                }
                 .icon-plans {
                     img {
                         width: 30px;
+                    }
+                    @media screen and (max-width: 426px) {
+                        grid-column: 1 / 2;
+                        grid-row: 1 / span 2;
+                        display: flex;
+                        justify-content: center;
                     }
                 }
                 h2 {
                     font-size: 16px;
                     color: $marineBlue;
                     margin-top: 50px;
+                    @media screen and (max-width: 426px) {
+                        margin: 0;
+                        grid-column: 2 / 3;
+                    }
+                }
+                .price {
+                    color: $coolGray;
+                    @media screen and (max-width: 426px) {
+                        grid-column: 2 / 3;
+                    }
                 }
                 &:hover {
                     border: 1px solid $marineBlue; 
@@ -248,11 +284,16 @@ body {
                 }
                 .freeMonths {
                     display: none;
+                    margin: 0;
+                    color: $marineBlue;
+                    @media screen and (max-width: 426px) {
+                        grid-column: 2 / 3;
+                    }
                 }
-                // .activePlan {
-                //     background-color: $lightGray;
-                //     border: 1px solid $marineBlue;
-                // }
+            }
+            .activePlan {
+                background-color: $magnolia;
+                border: 1px solid $marineBlue;
             }
         }
         &__rates {
@@ -279,6 +320,54 @@ body {
             display: flex;
             justify-content: space-between;
             margin-top: 140px;
+            @media screen and (max-width: 770px) {
+                // position: absolute;
+                // bottom: 0;
+                // background-color: $white;
+            }
+            a {
+                text-decoration: none;
+                color: $coolGray;
+            }
+            &__submit {
+                @include buttonsSubmit();
+                margin: 0;
+                // @media screen and (max-width: 930px) {
+                //     width: 84px;
+                // }
+                @media screen and (max-width: 770px) {
+                    position: relative;
+                    bottom: 0;
+                }
+                // @media screen and (max-width: 518px) {
+                //     bottom: -100px;
+                // }
+                // @media screen and (max-width: 426px) {
+                //     bottom: -150px;
+                // }
+            }
+        }
+    }
+    .infos__plans__mobile {
+        @media screen and (max-width: 780px) {
+            top: -160px;
+        }
+        @media screen and (max-width: 426px) {
+            top: -115px;
+        }
+    }
+    &__btns {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $white;
+        padding: 10px;
+        a {
+            text-decoration: none;
+            color: $coolGray;
         }
     }
 }
