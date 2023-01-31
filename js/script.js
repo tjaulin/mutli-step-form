@@ -1,3 +1,12 @@
+// Variables containing the user's values
+var nameUser = "";
+var emailUser = "";
+var telUser = "";
+
+var nameOfPlanUser = "";
+var priceOfPlanUser = "";
+var periodicity = "";
+
 const main = document.querySelector(".container");
 const infos = document.querySelector(".container__infos");
 const sidebar = document.querySelector(".container__sidebar");
@@ -9,7 +18,7 @@ const infosClone = infos.cloneNode(true);
 btnSubmit.addEventListener("click", function(event) {
     event.preventDefault();
 });
-btnSubmit.addEventListener("click", goStep2);
+// btnSubmit.addEventListener("click", goStep2);
 
 const afterSubmitButtons = btnSubmit;
 const divButton = document.createElement("div");
@@ -167,11 +176,12 @@ function goStep2() {
 
     const btnRetour = document.createElement("a");
     btnRetour.innerHTML = "Go Back";
-    btnRetour.href = "#";
-    // btnRetour.onclick = test;
+    btnRetour.href = "index.html";
+    // btnRetour.onclick = backPersonalInfo;
 
     btnSubmit.classList.remove("container__infos__form__submit")
     btnSubmit.classList.add("container__infos__btns__submit");
+    btnSubmit.setAttribute("onclick", "goAddOns()");
 
     bgBtns.append(btnRetour, btnSubmit);
 
@@ -199,9 +209,221 @@ function goStep2() {
         infosButtons.remove();
         main.append(afterInfosButtons);
     }
+
+    // DEBUG
+    console.log(nameUser);
+    console.log(emailUser);
+    console.log(telUser);
 }
 
-// function test() {
+function verification() {
+    clearMessages();
+
+    const divLabels = document.querySelectorAll(".labels");
+
+    const valueName = document.getElementById("name").value;
+    const valueEmail = document.getElementById("email").value;
+    const valueTel = document.getElementById("tel").value;
+
+    if (valueName ==  "") {
+        const errorLabelName = document.createElement("label");
+        errorLabelName.setAttribute("for", "name");
+        errorLabelName.classList.add("errorInput");
+        errorLabelName.innerText = "This field is required";
+        const inputName = document.getElementById("name");
+        inputName.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsName")) {
+                e.append(errorLabelName);
+            }
+        });
+        return (false);
+    } else if (valueEmail == "") {
+        const errorLabelEmail = document.createElement("label");
+        errorLabelEmail.setAttribute("for", "email");
+        errorLabelEmail.classList.add("errorInput");
+        errorLabelEmail.innerText = "This field is required";
+        const inputEmail = document.getElementById("email");
+        inputEmail.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsEmail")) {
+                e.append(errorLabelEmail);
+            }
+        });
+        return (false);
+    } else if (valueTel == "") {
+        const errorLabelTel = document.createElement("label");
+        errorLabelTel.setAttribute("for", "tel");
+        errorLabelTel.classList.add("errorInput");
+        errorLabelTel.innerText = "This field is required";
+        const inputTel = document.getElementById("tel");
+        inputTel.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsTel")) {
+                e.append(errorLabelTel);
+            }
+        });
+        return (false);
+    } else if (ValidateName(valueName) && ValidateEmail(valueEmail) && ValidateTel(valueTel)){
+        nameUser = valueName;
+        emailUser = valueEmail;
+        telUser = valueTel;
+        goStep2();
+    } else {
+        return (false);
+    }
+}
+
+function clearMessages() {
+    const errorInput = document.querySelectorAll(".errorInput");
+
+    errorInput.forEach(function(e){
+        e.remove();
+    })
+
+    const nameInput = document.getElementById("name");
+    nameInput.classList.remove("error");
+    const emailInput = document.getElementById("email");
+    emailInput.classList.remove("error");
+    const telInput = document.getElementById("tel");
+    telInput.classList.remove("error");
+}
+
+function ValidateName(name) {
+    const regexName = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
+    if (regexName.test(name)) {
+        return (true);
+    } else {
+        const divLabels = document.querySelectorAll(".labels");
+        const errorLabelName = document.createElement("label");
+        errorLabelName.setAttribute("for", "name");
+        errorLabelName.classList.add("errorInput");
+        errorLabelName.innerText = "Invalid format (Name Surname)";
+        const inputName = document.getElementById("name");
+        inputName.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsName")) {
+                e.append(errorLabelName);
+            }
+        });
+        return (false);
+    }
+}
+
+function ValidateEmail(mail) {
+    const regexMail = /^[a-zA-Z0-9.!#$%&\'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
+    if (regexMail.test(mail)) {
+        return (true);
+    } else {
+        const divLabels = document.querySelectorAll(".labels");
+        const errorLabelEmail = document.createElement("label");
+        errorLabelEmail.setAttribute("for", "email");
+        errorLabelEmail.classList.add("errorInput");
+        errorLabelEmail.innerText = "Invalid format (example@gmail.com)";
+        const inputEmail = document.getElementById("email");
+        inputEmail.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsEmail")) {
+                e.append(errorLabelEmail);
+            }
+        });
+        return (false);
+    }
+}
+
+function ValidateTel(tel) {
+    const regexTel = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+    if (regexTel.test(tel)) {
+        return (true);
+    } else {
+        const divLabels = document.querySelectorAll(".labels");
+        const errorLabelTel = document.createElement("label");
+        errorLabelTel.setAttribute("for", "tel");
+        errorLabelTel.classList.add("errorInput");
+        errorLabelTel.innerText = "Invalid format (01 23 45 67 89)"; 
+        const inputTel = document.getElementById("tel");
+        inputTel.classList.add("error");
+        divLabels.forEach(function(e) {
+            if (e.classList.contains("labelsTel")) {
+                e.append(errorLabelTel);
+            }
+        });""
+        return (false);
+    }
+}
+
+function goAddOns() {
+    console.log("test");
+}
+
+// function backPersonalInfo() {
 //     infos.remove();
-//     main.append(infosClone);
+//     main.innerHTML = `
+//     <div class="container__sidebar">
+//       <ul class="container__sidebar__list">
+//         <li class="container__sidebar__list__li step1 active">
+//           <span>1</span>
+//           <div class="sidebar__steps">
+//             <span>STEP 1</span>
+//             <p>YOUR INFO</p>
+//           </div>
+//         </li>
+//         <li class="container__sidebar__list__li step2">
+//           <span>2</span>
+//           <div class="sidebar__steps">
+//             <span>STEP 2</span>
+//             <p>SELECT PLAN</p>
+//           </div>
+//         </li>
+//         <li class="container__sidebar__list__li step3">
+//           <span>3</span>
+//           <div class="sidebar__steps">
+//             <span>STEP 3</span>
+//             <p>ADD-ONS</p>
+//           </div>
+//         </li>
+//         <li class="container__sidebar__list__li step4">
+//           <span>4</span>
+//           <div class="sidebar__steps">
+//             <span>STEP 4</span>
+//             <p>SUMMARY</p>
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//     <div class="container__infos">
+
+//       <h1>Personal info</h1>
+//       <p>Please provide your name, email address, and phone number.</p>
+
+//       <form class="container__infos__form" method="post">
+//         <div class="labels labelsName">
+//           <label for="name">Name</label>
+//           <!-- <label for="name" class="errorInput">This field is required</label> -->
+//         </div>
+//         <input type="text" name="name" id="name" placeholder="e.g Stephen King">
+
+//         <div class="labels labelsEmail">
+//           <label for="email">Email Address</label>
+//         </div>
+//         <input type="email" name="email" id="email" placeholder="e.g stephenking@lorem.com">
+
+//         <div class="labels labelsTel">
+//           <label for="tel">Phone Number</label>
+//         </div>
+//         <input type="tel" name="tel" id="tel" placeholder="e.g +12 34 56 78 90">
+
+//         <button class="container__infos__form__submit" onclick="verification()">Next Step</button>
+//       </form>
+//     </div>
+//     `
+//     btnSubmit.removeEventListener("click", function(event) {
+//         event.preventDefault();
+//     });
+//     const inputName = document.getElementById("name");
+//     inputName.value = nameUser;
+//     const inputEmail = document.getElementById("email");
+//     inputEmail.value = emailUser;
+//     const inputTel = document.getElementById("tel");
+//     inputTel.value = telUser;
 // }
