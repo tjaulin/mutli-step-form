@@ -5,7 +5,7 @@ var telUser = "";
 
 var nameOfPlanUser = "";
 var priceOfPlanUser = "";
-var periodicity = "";
+var periodicityUser = "";
 
 const main = document.querySelector(".container");
 const infos = document.querySelector(".container__infos");
@@ -352,8 +352,58 @@ function ValidateTel(tel) {
     }
 }
 
-function goAddOns() {
-    console.log("test");
+function goAddOns(periodicity) {
+
+    const containerInfosRates = document.querySelector(".container__infos__rates");
+    if (containerInfosRates.classList.contains("monthly")) {
+        periodicityUser = "monthly";
+    } else {
+        periodicityUser = "yearly";
+    }
+    infos.innerHTML = "";
+    periodicity = periodicityUser;
+
+    // ----- SIDEBAR -----
+    listLiSidebar.forEach(e => {
+        if (e.classList.contains("active")) {
+            e.classList.remove("active");
+        } else if (e.classList.contains("step3")) {
+            e.classList.add("active");
+        }
+    });
+    
+    // ----- TITLE -----
+    const title = document.createElement("h1");
+    title.innerText = "Pick add-ons";
+    
+    // ----- PARAGRAPH -----
+    const paragraph = document.createElement("p");
+    paragraph.innerText = "Add-ons help enhance your gaming experience.";
+
+
+    // ----- ADD-ONS -----
+    if (periodicity == "monthly") {
+        // CODE
+    } else {
+        // CODE
+    }
+ 
+
+    // ----- BUTTONS -----
+    const bgBtns = document.createElement("div");
+    bgBtns.classList.add("container__infos__btns");
+
+    const btnRetour = document.createElement("a");
+    btnRetour.innerHTML = "Go Back";
+    btnRetour.href = "index.html";
+    // btnRetour.onclick = backPersonalInfo;
+
+    // btnSubmit.classList.remove("container__infos__form__submit")
+    // btnSubmit.classList.add("container__infos__btns__submit");
+
+    bgBtns.append(btnRetour, btnSubmit);
+
+    infos.append(title, paragraph, bgBtns);
 }
 
 // function backPersonalInfo() {
