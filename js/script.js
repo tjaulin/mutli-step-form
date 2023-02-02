@@ -57,6 +57,7 @@ function goStep2() {
     plans.classList.add("container__infos__plans");
     
     const arcade = document.createElement("div");
+    arcade.classList.add("plan", "arcadePlan");
     const h2Arcade = document.createElement("h2");
     const arcadePrice = document.createElement("span");
     arcadePrice.classList.add("arcadePrice", "price");
@@ -64,11 +65,11 @@ function goStep2() {
     const divIconArcade = document.createElement("div");
     divIconArcade.classList.add("icon-plans");
     const iconArcade = document.createElement("img");
-    arcade.classList.add("plan");
     h2Arcade.innerText = "Arcade";
     iconArcade.src = "../assets/images/icon-arcade.svg";
     
     const advanced = document.createElement("div");
+    advanced.classList.add("plan", "advancedPlan");
     const h2Advanced = document.createElement("h2");
     const advancedPrice = document.createElement("span");
     advancedPrice.classList.add("advancedPrice", "price");
@@ -76,11 +77,11 @@ function goStep2() {
     const divIconAdvanced = document.createElement("div");
     divIconAdvanced.classList.add("icon-plans");
     const iconAdvanced = document.createElement("img");
-    advanced.classList.add("plan");
     h2Advanced.innerText = "Advanced";
     iconAdvanced.src = "../assets/images/icon-advanced.svg";
     
     const pro = document.createElement("div");
+    pro.classList.add("plan", "proPlan");
     const h2Pro = document.createElement("h2");
     const proPrice = document.createElement("span");
     proPrice.classList.add("proPrice", "price");
@@ -88,7 +89,6 @@ function goStep2() {
     const divIconPro = document.createElement("div");
     divIconPro.classList.add("icon-plans");
     const iconPro = document.createElement("img");
-    pro.classList.add("plan");
     h2Pro.innerText = "Pro";
     iconPro.src = "../assets/images/icon-pro.svg";
     
@@ -181,7 +181,7 @@ function goStep2() {
 
     btnSubmit.classList.remove("container__infos__form__submit")
     btnSubmit.classList.add("container__infos__btns__submit");
-    btnSubmit.setAttribute("onclick", "goAddOns()");
+    btnSubmit.setAttribute("onclick", "verifyPlan()");
 
     bgBtns.append(btnRetour, btnSubmit);
 
@@ -352,6 +352,31 @@ function ValidateTel(tel) {
     }
 }
 
+function verifyPlan() {
+    const plans = document.querySelectorAll(".plan");
+    let counter = 0;
+    plans.forEach(function(e) {
+        if (e.classList.contains("activePlan")) {
+            if (e.classList.contains("arcadePlan")) {
+                nameOfPlanUser = "Arcade";
+                priceOfPlanUser = document.querySelector(".arcadePrice").textContent;
+            } else if (e.classList.contains("advancedPlan")) {
+                nameOfPlanUser = "Advanced";
+                priceOfPlanUser = document.querySelector(".advancedPrice").textContent;
+            } else {
+                nameOfPlanUser = "Pro";
+                priceOfPlanUser = document.querySelector(".proPrice").textContent;
+            }
+            goAddOns();
+        } else {
+            counter++
+        }
+    });
+    if (counter === 3) {
+        return alert("Please select one plan!");
+    }
+}
+
 function goAddOns(periodicity) {
 
     const containerInfosRates = document.querySelector(".container__infos__rates");
@@ -382,17 +407,103 @@ function goAddOns(periodicity) {
 
 
     // ----- ADD-ONS -----
+
+    const divAddons = document.createElement("div");
+    divAddons.classList.add("container__infos__addons");
+
+    const divAddonOnlineService = document.createElement("article");
+    divAddonOnlineService.classList.add("addon", "addonOS");
+    const inputCheckboxOS = document.createElement("input");
+    inputCheckboxOS.type = "checkbox";
+    inputCheckboxOS.name = "checkbox";
+    inputCheckboxOS.classList.add("checkbox");
+    inputCheckboxOS.addEventListener("click", function() {
+        divAddonOnlineService.classList.toggle("activeAddon");
+    })
+    const divParagraphOS = document.createElement("div");
+    const h2TitleOS = document.createElement("h2");
+    const pOS = document.createElement("p");
+    const priceOS = document.createElement("span");
+    
+    const divAddonLargerStorage = document.createElement("article");
+    divAddonLargerStorage.classList.add("addon", "addonLS");
+    const inputCheckboxLS = document.createElement("input");
+    inputCheckboxLS.type = "checkbox";
+    inputCheckboxLS.name = "checkbox";
+    inputCheckboxLS.classList.add("checkbox");
+    inputCheckboxLS.addEventListener("click", function() {
+        divAddonLargerStorage.classList.toggle("activeAddon");
+    })
+    const divParagraphLS = document.createElement("div");
+    const h2TitleLS = document.createElement("h2");
+    const pLS = document.createElement("p");
+    const priceLS = document.createElement("span");
+    
+    const divAddonCustomizableProfile = document.createElement("article");
+    divAddonCustomizableProfile.classList.add("addon", "addonLS");
+    const inputCheckboxCP = document.createElement("input");
+    inputCheckboxCP.type = "checkbox";
+    inputCheckboxCP.name = "checkbox";
+    inputCheckboxCP.classList.add("checkbox");
+    inputCheckboxCP.addEventListener("click", function() {
+        divAddonCustomizableProfile.classList.toggle("activeAddon");
+    })
+    const divParagraphCP = document.createElement("div");
+    const h2TitleCP = document.createElement("h2");
+    const pCP = document.createElement("p");
+    const priceCP = document.createElement("span");
+    
     if (periodicity == "monthly") {
-        // CODE
+        // Online Service
+        h2TitleOS.innerText = "Online service";
+        pOS.innerText = "Access to multiplayer games";
+        priceOS.innerText = "$1/mo";
+        
+        // Larger Storage
+        h2TitleLS.innerText = "Larger storage";
+        pLS.innerText = "Extra 1TB of cloud save";
+        priceLS.innerText = "$2/mo";
+        
+        // Customizable Profile
+        h2TitleCP.innerText = "Customizable Profile";
+        pCP.innerText = "Custom theme on your profile";
+        priceCP.innerText = "$2/mo";
+        
     } else {
-        // CODE
+        // Online Service
+        h2TitleOS.innerText = "Online service";
+        pOS.innerText = "Access to multiplayer games";
+        priceOS.innerText = "$10/yr";
+        
+        // Larger Storage
+        h2TitleLS.innerText = "Larger storage";
+        pLS.innerText = "Extra 1TB of cloud save";
+        priceLS.innerText = "$20/yr";
+        
+        // Customizable Profile
+        h2TitleCP.innerText = "Customizable Profile";
+        pCP.innerText = "Custom theme on your profile";
+        priceCP.innerText = "$20/yr";
     }
- 
+
+    // Online Service
+    divParagraphOS.append(h2TitleOS, pOS);
+    divAddonOnlineService.append(inputCheckboxOS, divParagraphOS, priceOS);
+
+    // Larger Storage
+    divParagraphLS.append(h2TitleLS, pLS);
+    divAddonLargerStorage.append(inputCheckboxLS, divParagraphLS, priceLS);
+
+    // Customizable Profile
+    divParagraphCP.append(h2TitleCP, pCP);
+    divAddonCustomizableProfile.append(inputCheckboxCP, divParagraphCP, priceCP);
+    
+    divAddons.append(divAddonOnlineService, divAddonLargerStorage, divAddonCustomizableProfile);
 
     // ----- BUTTONS -----
     const bgBtns = document.createElement("div");
     bgBtns.classList.add("container__infos__btns");
-
+    
     const btnRetour = document.createElement("a");
     btnRetour.innerHTML = "Go Back";
     btnRetour.href = "index.html";
@@ -402,8 +513,23 @@ function goAddOns(periodicity) {
     // btnSubmit.classList.add("container__infos__btns__submit");
 
     bgBtns.append(btnRetour, btnSubmit);
+    
+    infos.append(title, paragraph, divAddons, bgBtns);
 
-    infos.append(title, paragraph, bgBtns);
+    const infosButtons = document.querySelector(".container__infos__btns");
+    if (window.screen.availWidth <= 770) {
+        const afterInfosButtons = infosButtons;
+        divButton.remove();
+        afterInfosButtons.classList.remove('container__infos__btns');
+        afterInfosButtons.classList.add('container__btns');
+        infosButtons.remove();
+        main.append(afterInfosButtons);
+    }
+    
+    // DEBUG
+    console.log(nameOfPlanUser);
+    console.log(priceOfPlanUser);
+    console.log(periodicity);
 }
 
 // function backPersonalInfo() {

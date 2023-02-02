@@ -322,7 +322,7 @@ body {
             width: 100%;
             display: flex;
             justify-content: space-between;
-            margin-top: 140px;
+            margin-top: 85px;
             @media screen and (max-width: 770px) {
                 // position: absolute;
                 // bottom: 0;
@@ -352,6 +352,54 @@ body {
                 // @media screen and (max-width: 426px) {
                 //     bottom: -150px;
                 // }
+            }
+        }
+        &__addons {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px; 
+            .addon {
+                position: relative;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border: 1px solid $coolGray;
+                border-radius: 5px;
+                margin: 5px 0;
+                user-select: none;
+                input {
+                    margin: 25px 20px;
+                    width: 20px;
+                    height: 20px;
+                    accent-color: $purplishBlue;
+                    cursor: pointer;
+                }
+                h2 {
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: $marineBlue;
+                    margin-bottom: 3px;
+                }
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                }
+                span {
+                    position: absolute;
+                    right: 10px;
+                    font-size: 14px;
+                    color: $purplishBlue;
+                }
+                &:first-child {
+                    margin: 0 0 5px 0;
+                }
+                &:last-child {
+                    margin: 5px 0 0 0;
+                }
+            }
+            .activeAddon {
+                background-color: $magnolia;
+                border-color: $marineBlue;
             }
         }
     }
