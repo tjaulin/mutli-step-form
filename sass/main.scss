@@ -373,16 +373,31 @@ body {
                     height: 20px;
                     accent-color: $purplishBlue;
                     cursor: pointer;
+                    @media screen and (max-width: 376px) {
+                        margin: 15px 10px;
+                    }
                 }
                 h2 {
                     font-size: 16px;
                     font-weight: 700;
                     color: $marineBlue;
                     margin-bottom: 3px;
+                    @media screen and (max-width: 426px) {
+                        font-size: 14px;
+                    }
+                    @media screen and (max-width: 376px) {
+                        font-size: 12px;
+                    }
                 }
                 p {
                     margin: 0;
                     font-size: 14px;
+                    @media screen and (max-width: 426px) {
+                        font-size: 12px;
+                    }
+                    @media screen and (max-width: 376px) {
+                        font-size: 10px;
+                    }
                 }
                 span {
                     position: absolute;
