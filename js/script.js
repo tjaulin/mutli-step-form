@@ -6,6 +6,12 @@ var telUser = "";
 var nameOfPlanUser = "";
 var priceOfPlanUser = "";
 var periodicityUser = "";
+var addons = new Map();
+var totalUser = 0;
+var priceArcadeUser = 9;
+var priceAdvancedUser = 12;
+var priceProUser = 15;
+
 
 const main = document.querySelector(".container");
 const infos = document.querySelector(".container__infos");
@@ -18,7 +24,6 @@ const infosClone = infos.cloneNode(true);
 btnSubmit.addEventListener("click", function(event) {
     event.preventDefault();
 });
-// btnSubmit.addEventListener("click", goStep2);
 
 const afterSubmitButtons = btnSubmit;
 const divButton = document.createElement("div");
@@ -132,6 +137,10 @@ function goStep2() {
             // Pro
             proPrice.innerText = "$150/yr"
             
+            priceArcadeUser = 90;
+            priceAdvancedUser = 120;
+            priceProUser = 150;
+            
             freeMonthsArcade.style.display = "block";
             freeMonthsAdvanced.style.display = "block";
             freeMonthsPro.style.display = "block";
@@ -148,9 +157,9 @@ function goStep2() {
             // Pro
             proPrice.innerText = "$15/mo"
             
-            // freeMonthsArcade.remove();
-            // freeMonthsAdvanced.remove();
-            // freeMonthsPro.remove();
+            priceArcadeUser = 9;
+            priceAdvancedUser = 12;
+            priceProUser = 15;
             
             freeMonthsArcade.style.display = "none";
             freeMonthsAdvanced.style.display = "none";
@@ -211,6 +220,7 @@ function goStep2() {
     }
 
     // DEBUG
+    console.log("totalUser : " + totalUser);
     console.log(nameUser);
     console.log(emailUser);
     console.log(telUser);
@@ -360,12 +370,15 @@ function verifyPlan() {
             if (e.classList.contains("arcadePlan")) {
                 nameOfPlanUser = "Arcade";
                 priceOfPlanUser = document.querySelector(".arcadePrice").textContent;
+                totalUser = totalUser + priceArcadeUser;
             } else if (e.classList.contains("advancedPlan")) {
                 nameOfPlanUser = "Advanced";
                 priceOfPlanUser = document.querySelector(".advancedPrice").textContent;
+                totalUser = totalUser + priceAdvancedUser;
             } else {
                 nameOfPlanUser = "Pro";
                 priceOfPlanUser = document.querySelector(".proPrice").textContent;
+                totalUser = totalUser + priceProUser;
             }
             goAddOns();
         } else {
@@ -378,7 +391,6 @@ function verifyPlan() {
 }
 
 function goAddOns(periodicity) {
-
     const containerInfosRates = document.querySelector(".container__infos__rates");
     if (containerInfosRates.classList.contains("monthly")) {
         periodicityUser = "monthly";
@@ -440,7 +452,7 @@ function goAddOns(periodicity) {
     const priceLS = document.createElement("span");
     
     const divAddonCustomizableProfile = document.createElement("article");
-    divAddonCustomizableProfile.classList.add("addon", "addonLS");
+    divAddonCustomizableProfile.classList.add("addon", "addonCP");
     const inputCheckboxCP = document.createElement("input");
     inputCheckboxCP.type = "checkbox";
     inputCheckboxCP.name = "checkbox";
@@ -509,9 +521,7 @@ function goAddOns(periodicity) {
     btnRetour.href = "index.html";
     // btnRetour.onclick = backPersonalInfo;
 
-    // btnSubmit.classList.remove("container__infos__form__submit")
-    // btnSubmit.classList.add("container__infos__btns__submit");
-
+    btnSubmit.setAttribute("onclick", "verifyAddons()");
     bgBtns.append(btnRetour, btnSubmit);
     
     infos.append(title, paragraph, divAddons, bgBtns);
@@ -527,9 +537,170 @@ function goAddOns(periodicity) {
     }
     
     // DEBUG
+    console.log("totalUser : " + totalUser);
     console.log(nameOfPlanUser);
     console.log(priceOfPlanUser);
-    console.log(periodicity);
+    console.log(periodicityUser);
+}
+
+function verifyAddons() {
+    addons.clear();
+    const activeAddons = document.querySelectorAll(".activeAddon")
+    activeAddons.forEach(function(e) {
+        if (periodicityUser === "monthly") {
+            if (e.classList.contains("addonOS")) {
+                addons.set("Online service", "+$1/mo");
+                totalUser = totalUser + 1;
+            } else if (e.classList.contains("addonLS")) {
+                addons.set("Larger storage", "+$2/mo")
+                totalUser = totalUser + 2;
+            } else if (e.classList.contains("addonCP")){
+                addons.set("Customizable profile", "+$2/mo")
+                totalUser = totalUser + 2;
+            }
+        } else {
+            if (e.classList.contains("addonOS")) {
+                addons.set("Online service", "+$10/yr");
+                totalUser = totalUser + 10;
+            } else if (e.classList.contains("addonLS")) {
+                addons.set("Larger storage", "+$20/yr")
+                totalUser = totalUser + 20;
+            } else if (e.classList.contains("addonCP")){
+                addons.set("Customizable profile", "+$20/yr")
+                totalUser = totalUser + 20;
+            }
+        }
+    });
+
+    // DEBUG
+    console.log("totalUser : " + totalUser);
+    console.log(addons);
+
+
+    goFinishingUp();
+}
+
+function goFinishingUp() {
+    infos.innerHTML = "";
+
+    // ----- SIDEBAR -----
+    listLiSidebar.forEach(e => {
+        if (e.classList.contains("active")) {
+            e.classList.remove("active");
+        } else if (e.classList.contains("step4")) {
+            e.classList.add("active");
+        }
+    });
+    
+    // ----- TITLE -----
+    const title = document.createElement("h1");
+    title.innerText = "Finishing up";
+    
+    // ----- PARAGRAPH -----
+    const paragraph = document.createElement("p");
+    paragraph.innerText = "Double-check everything looks OK before confirming.";
+
+    // ----- SUMMARY -----
+    const divSummary = document.createElement("div");
+    divSummary.classList.add("container__infos__summary");
+
+    const divPlan = document.createElement("div");
+    divPlan.classList.add("container__infos__summary__plan");
+    
+    const divPlanUser = document.createElement("div");
+    divPlanUser.classList.add("container__infos__summary__plan__user");
+    const divPlanName = document.createElement("div");
+    divPlanName.classList.add("container__infos__summary__plan__user__name");
+    const h2Name = document.createElement("h2");
+    h2Name.innerText = `Arcade (${periodicityUser})`
+    const aName = document.createElement("a");
+    aName.href="#"
+    aName.innerText = "Change";
+    divPlanName.append(h2Name, aName);
+    const pricePlan = document.createElement("span");
+    pricePlan.innerText = `${priceOfPlanUser}`;
+    divPlanUser.append(divPlanName, pricePlan);
+    divPlan.append(divPlanUser);
+
+    const divTotalPrice = document.createElement("div");
+    divTotalPrice.classList.add("container__infos__summary__totalPrice");
+    const spanTotalPrice = document.createElement("span");
+    if (periodicityUser === "monthly") {
+        spanTotalPrice.innerText = `Total (per month)`;
+    } else {
+        spanTotalPrice.innerText = `Total (per year)`;
+    }
+    const totalPrice = document.createElement("span");
+    totalPrice.classList.add("totalPrice");
+
+    if (addons.size > 0) {
+        const hr = document.createElement("hr");
+        divPlan.append(hr);
+        if (addons.has("Online service")) {
+            const OS = document.createElement("div");
+            OS.classList.add("addonsOS", "addon");
+            const spanOS = document.createElement("span");
+            spanOS.innerText = "Online service";
+            const priceOS = document.createElement("span");
+            priceOS.classList.add("priceOS", "price");
+            priceOS.innerText = addons.get("Online service");
+            OS.append(spanOS, priceOS);
+            divPlan.append(OS);
+        }
+        if (addons.has("Larger storage")) {
+            const LS = document.createElement("div");
+            LS.classList.add("addonsLS", "addon");
+            const spanLS = document.createElement("span");
+            spanLS.innerText = "Larger storage";
+            const priceLS = document.createElement("span");
+            priceLS.classList.add("priceLS", "price");
+            priceLS.innerText = addons.get("Larger storage");
+            LS.append(spanLS, priceLS);
+            divPlan.append(LS);
+        }
+        if (addons.has("Customizable profile")) {
+            const CP = document.createElement("div");
+            CP.classList.add("addonsCP", "addon");
+            const spanCP = document.createElement("span");
+            spanCP.innerText = "Customizable profile";
+            const priceCP = document.createElement("span");
+            priceCP.classList.add("priceCP", "price");
+            priceCP.innerText = addons.get("Customizable profile");
+            CP.append(spanCP, priceCP);
+            divPlan.append(CP);
+        }
+    }
+    if (periodicityUser === "monthly") {
+        totalPrice.innerText = `+$${totalUser}/mo`;
+    } else {
+        totalPrice.innerText = `$${totalUser}/yr`;
+    }
+    divTotalPrice.append(spanTotalPrice, totalPrice);
+    divSummary.append(divPlan, divTotalPrice);
+    
+    // ----- BUTTONS -----
+    const bgBtns = document.createElement("div");
+    bgBtns.classList.add("container__infos__btns");
+    
+    const btnRetour = document.createElement("a");
+    btnRetour.innerHTML = "Go Back";
+    btnRetour.href = "index.html";
+    // btnRetour.onclick = backPersonalInfo;
+    
+    btnSubmit.setAttribute("onclick", "verifyAddons()");
+    bgBtns.append(btnRetour, btnSubmit);
+
+    infos.append(title, paragraph, divSummary, bgBtns);
+    
+    const infosButtons = document.querySelector(".container__infos__btns");
+    if (window.screen.availWidth <= 770) {
+        const afterInfosButtons = infosButtons;
+        divButton.remove();
+        afterInfosButtons.classList.remove('container__infos__btns');
+        afterInfosButtons.classList.add('container__btns');
+        infosButtons.remove();
+        main.append(afterInfosButtons);
+    }
 }
 
 // function backPersonalInfo() {

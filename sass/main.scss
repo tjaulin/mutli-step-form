@@ -89,6 +89,7 @@ body {
         background: url('../assets/images/bg-sidebar-desktop.svg');
         background-size: cover;
         background-repeat: no-repeat;
+        background-position: bottom;
         padding: 30px;
         border-radius: $defaultBorderRadius;
         @media screen and (max-width: 930px) {
@@ -415,6 +416,86 @@ body {
             .activeAddon {
                 background-color: $magnolia;
                 border-color: $marineBlue;
+            }
+        }
+        &__summary {
+            &__plan {
+                background-color: $magnolia;
+                border-radius: 10px;
+                padding: 20px;
+                hr {
+                    margin: 15px 0;
+                }
+                &__user {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    span {
+                        font-size: 14px;
+                        color: $marineBlue;
+                        font-weight: bold; 
+                        @media screen and (max-width: 376px) {
+                            font-size: 12px;
+                        }
+                    }
+                    &__name {
+                        h2 {
+                            font-size: 16px;
+                            color: $marineBlue;
+                            text-transform: capitalize;
+                            @media screen and (max-width: 376px) {
+                                font-size: 14px;
+                            }
+                        }
+                        a {
+                            font-size: 14px;
+                            color: $coolGray;
+                            @media screen and (max-width: 376px) {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+                .addon {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 10px 0;
+                    &:last-child {
+                        margin: 10px 0 0 0;
+                    }
+                    span, .price {
+                        font-size: 14px;
+                        color: $coolGray;
+                        @media screen and (max-width: 376px) {
+                            font-size: 12px;
+                        }
+                    }
+                    .price {
+                        color: $marineBlue;
+                    }
+                }
+            }
+            &__totalPrice {
+                padding: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                span {
+                    font-size: 14px;
+                    color: $coolGray;
+                    @media screen and (max-width: 376px) {
+                        font-size: 12px;
+                    }
+                }
+                .totalPrice {
+                    font-size: 20px;
+                    color: $purplishBlue;
+                    font-weight: bold;
+                    @media screen and (max-width: 376px) {
+                        font-size: 16px;
+                    }
+                }
             }
         }
     }
