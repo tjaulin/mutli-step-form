@@ -528,11 +528,12 @@ function goAddOns(periodicity) {
 
     const infosButtons = document.querySelector(".container__infos__btns");
     if (window.screen.availWidth <= 770) {
+        const divBtnSubmit = document.querySelector(".container__btns");
+        divBtnSubmit.remove();
         const afterInfosButtons = infosButtons;
         divButton.remove();
         afterInfosButtons.classList.remove('container__infos__btns');
         afterInfosButtons.classList.add('container__btns');
-        infosButtons.remove();
         main.append(afterInfosButtons);
     }
     
@@ -687,20 +688,47 @@ function goFinishingUp() {
     btnRetour.href = "index.html";
     // btnRetour.onclick = backPersonalInfo;
     
-    btnSubmit.setAttribute("onclick", "verifyAddons()");
+    btnSubmit.setAttribute("onclick", "goThankYou()");
     bgBtns.append(btnRetour, btnSubmit);
 
     infos.append(title, paragraph, divSummary, bgBtns);
     
     const infosButtons = document.querySelector(".container__infos__btns");
     if (window.screen.availWidth <= 770) {
+        const divBtnSubmit = document.querySelector(".container__btns");
+        divBtnSubmit.remove();
         const afterInfosButtons = infosButtons;
-        divButton.remove();
         afterInfosButtons.classList.remove('container__infos__btns');
         afterInfosButtons.classList.add('container__btns');
-        infosButtons.remove();
         main.append(afterInfosButtons);
     }
+}
+
+function goThankYou() {
+    infos.innerHTML = "";
+    infos.classList.remove("container__infos");
+    infos.classList.add("container__appreciation");
+
+    // ----- IMG ILLUSTRATION -----
+    const imgIllustration = document.createElement("img");
+    imgIllustration.src = "../assets/images/icon-thank-you.svg"
+    imgIllustration.alt = "image illustration 'thank you'"
+    
+    // ----- TITLE -----
+    const title = document.createElement("h1");
+    title.innerText = "Thank you!";
+    
+    // ----- PARAGRAPH -----
+    const paragraph = document.createElement("p");
+    paragraph.innerText = "Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.";
+
+    // ----- BUTTONS -----
+    if (window.screen.availWidth <= 770) {
+        const divBtnSubmit = document.querySelector(".container__btns");
+        divBtnSubmit.remove();
+    }
+
+    infos.append(imgIllustration, title, paragraph);
 }
 
 // function backPersonalInfo() {

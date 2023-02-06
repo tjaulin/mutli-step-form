@@ -516,6 +516,48 @@ body {
     &__btns.forms {
         justify-content: flex-end;
     }
+    &__appreciation {
+        text-align: center;
+        color:  #333;
+        width: 60%;
+        height: 100%;
+        padding: 120px 70px 120px 0;
+        @media screen and (max-width: 770px) {
+            background-color: $white;
+            width: 90%;
+            height: auto;
+            border-radius: 15px;
+            padding: 60px 15px;
+            position: relative;
+            box-shadow: 0 14px 28px rgba(95, 86, 86, 0.25), 0 10px 10px rgba(0,0,0,0.22);
+            top: 85px;
+        }
+        img {
+            @media screen and (max-width: 426px) {
+                width: 50px;
+            }
+        }
+        h1 {
+            margin: 20px 0;
+            color: $marineBlue;
+            @media screen and (max-width: 770px) {
+                margin: 20px 0 15px 0;
+            }
+            @media screen and (max-width: 426px) {
+                font-size: 25px;
+            }
+        }
+        p {
+            margin: 20px 0;
+            color: $coolGray;
+            font-size: $fontSizePrimary;
+            margin-bottom: 15px;
+            @media screen and (max-width: 426px) {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
 }
 
 // ----- SIDEBAR STEPS -----
