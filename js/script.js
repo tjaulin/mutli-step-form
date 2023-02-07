@@ -267,12 +267,23 @@ function goStep2(onchange = false) {
 
     const infosButtons = document.querySelector(".container__infos__btns");
     if (window.screen.availWidth <= 770) {
-        const afterInfosButtons = infosButtons;
-        divButton.remove();
-        afterInfosButtons.classList.remove('container__infos__btns');
-        afterInfosButtons.classList.add('container__btns');
-        infosButtons.remove();
-        main.append(afterInfosButtons);
+        if (onchange === false) {
+            const afterInfosButtons = infosButtons;
+            divButton.remove();
+            afterInfosButtons.classList.remove('container__infos__btns');
+            afterInfosButtons.classList.add('container__btns');
+            infosButtons.remove();
+            main.append(afterInfosButtons);
+        } else {
+            const lastContainerBtns = document.querySelector(".container__btns");
+            lastContainerBtns.remove();
+            const afterInfosButtons = infosButtons;
+            divButton.remove();
+            afterInfosButtons.classList.remove('container__infos__btns');
+            afterInfosButtons.classList.add('container__btns');
+            infosButtons.remove();
+            main.append(afterInfosButtons);
+        }
     }
 
     if (onchange === true) {
@@ -619,7 +630,6 @@ function goAddOns(onchange = false, backbutton = false, infosRates = true) {
     const btnRetour = document.createElement("a");
     btnRetour.innerHTML = "Go Back";
     btnRetour.setAttribute("onclick", "goStep2(true)");
-    // btnRetour.onclick = backPersonalInfo;
 
     btnSubmit.setAttribute("onclick", "verifyAddons()");
     bgBtns.append(btnRetour, btnSubmit);
@@ -881,8 +891,10 @@ function goThankYou() {
 
     // ----- BUTTONS -----
     if (window.screen.availWidth <= 770) {
-        const divBtnSubmit = document.querySelector(".container__btns");
-        divBtnSubmit.remove();
+        const divBtnSubmit = document.querySelectorAll(".container__btns");
+        divBtnSubmit.forEach(function(e) {
+            e.remove();
+        })
     }
 
     infos.append(imgIllustration, title, paragraph);
