@@ -238,8 +238,6 @@ function goStep2(onchange = false) {
     const btnRetour = document.createElement("a");
     btnRetour.innerHTML = "Go Back";
     btnRetour.setAttribute("onclick", "returnFirstStep()");
-    // btnRetour.href = "index.html";
-    // btnRetour.onclick = backPersonalInfo;
 
     btnSubmit.classList.remove("container__infos__form__submit")
     btnSubmit.classList.add("container__infos__btns__submit");

@@ -44,6 +44,7 @@ Users should be able to:
 - Semantic HTML5 markup
 - CSS/SCSS
 - Flexbox
+- CSS Grid
 - Full javascript
 - Desktop-first
 - Google Fonts

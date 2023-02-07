@@ -325,11 +325,6 @@ body {
             justify-content: space-between;
             margin-top: 85px;
             cursor: pointer;
-            @media screen and (max-width: 770px) {
-                // position: absolute;
-                // bottom: 0;
-                // background-color: $white;
-            }
             a {
                 text-decoration: none;
                 color: $coolGray;
@@ -341,19 +336,10 @@ body {
             &__submit {
                 @include buttonsSubmit();
                 margin: 0;
-                // @media screen and (max-width: 930px) {
-                //     width: 84px;
-                // }
                 @media screen and (max-width: 770px) {
                     position: relative;
                     bottom: 0;
                 }
-                // @media screen and (max-width: 518px) {
-                //     bottom: -100px;
-                // }
-                // @media screen and (max-width: 426px) {
-                //     bottom: -150px;
-                // }
             }
         }
         &__addons {
